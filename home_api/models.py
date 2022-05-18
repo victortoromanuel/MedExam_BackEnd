@@ -2,6 +2,17 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 
+class Examen(models.Model):
+	IdExamen = models.PositiveSmallIntegerField(default=5, primary_key=True)
+	Nombre = models.CharField(max_length=50)
+	Precio = models.IntegerField()
+	Duracion = models.DurationField()
+	NroPreguntas = models.IntegerField()
+
+	def __str__(self):
+		txt = 'Examen {1} N°{0}'
+		return txt.format(self.IdExamen, self.Nombre)
+
 class Especialidad(models.Model):
 	IdEspecialidad = models.PositiveSmallIntegerField(default=5, primary_key=True)
 	Nombre = models.CharField(max_length=50)
@@ -9,6 +20,12 @@ class Especialidad(models.Model):
 	def __str__(self):
 		txt = "{0}"
 		return txt.format(self.Nombre)
+
+	def save(self, *args, **kwargs):
+		examenes = list(Examen.objects.values())
+		idExamen = len(examenes)+1
+		Examen.objects.create(IdExamen = idExamen, Nombre = self.Nombre, Precio = 50000, Duracion = '02:00:00', NroPreguntas = 40)
+		super(Especialidad, self).save(*args, **kwargs)
 
 class Usuario(models.Model):
 	IdUsuario = models.IntegerField(primary_key=True)
@@ -29,17 +46,6 @@ class Usuario(models.Model):
 	def __str__(self):
 		txt = '{0} {1}'
 		return txt.format(self.Nombre, self.ApellidoPaterno)
-
-class Examen(models.Model):
-	IdExamen = models.PositiveSmallIntegerField(default=5, primary_key=True)
-	Nombre = models.CharField(max_length=50)
-	Precio = models.IntegerField()
-	Duracion = models.DurationField()
-	NroPreguntas = models.IntegerField()
-
-	def __str__(self):
-		txt = 'Examen {1} N°{0}'
-		return txt.format(self.IdExamen, self.Nombre)
 
 class Pregunta(models.Model):
 	IdPregunta = models.IntegerField(primary_key=True)

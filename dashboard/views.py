@@ -59,7 +59,7 @@ class DashboardView(APIView):
         examenesXUsuario = ExamenesXUsuario.objects.filter(IdUsuario = usuario[0])
         for eu in examenesXUsuario:
             #Quitar el total preguntas != 20 del if cuando se tengan mas de 50 preguntas
-            if eu.TotalPreguntas != 5 and eu.TotalPreguntas != 20 and eu.TotalPreguntas != 30 and eu.TotalPreguntas != 40 and eu.TotalPreguntas != 50: 
+            if eu.TotalPreguntas != 5 and eu.TotalPreguntas != 10 and eu.TotalPreguntas != 20 and eu.TotalPreguntas != 30 and eu.TotalPreguntas != 40 and eu.TotalPreguntas != 50: 
                 preguntasXExamenXUsuarios = PreguntasXExamenXUsuario.objects.filter(IdUsuario = usuario[0], IdExamenesXUsuario = eu)
                 for peu in preguntasXExamenXUsuarios:
                     PreguntasXExamenXUsuario.objects.filter(IdPreguntasXExamenXUsuario = peu.IdPreguntasXExamenXUsuario).delete()
