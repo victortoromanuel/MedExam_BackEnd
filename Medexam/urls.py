@@ -28,4 +28,5 @@ urlpatterns = [
     path('api/', include('user.urls')),
     path('api/', include('tableResults.urls')),
     path('api/', include('dashboard.urls')),
+    path('api/', include('especializacion.urls')),
 ]
