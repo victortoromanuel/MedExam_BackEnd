@@ -104,6 +104,7 @@ class FormularioView(APIView):
 
     def get(self, request, id=0):
         #Muestra las preguntas
+        #print(request.body)
         preguntas = list(Pregunta.objects.values())
         if len(preguntas) > 0:
             datos = {'Message': "Success GET", 'Preguntas': preguntas}
@@ -113,14 +114,14 @@ class FormularioView(APIView):
 
     def post(self, request):
         #Captura los datos enviados por el frontend y envía un mensaje
-        print(request.body)
+        print(request.body) 
         jd = json.loads(request.body)
         preguntas = list(Pregunta.objects.values())
         datos = {}
         if jd['Nombre'] == "Examen gratis":
             if jd['getPregunta'] == False: #Envía el idExamenXUsuario
                 idExamenXUsuario = self.createExamenXUsuario(int(jd['IdUsuario']), 0)
-                datos = {'Message': 'Success POST', 'IdExamenXUsuario': idExamenXUsuario}
+                datos = {'Message': 'Success POST', 'IdExamen': 0, 'IdExamenXUsuario': idExamenXUsuario}
             else: #Se crea el ExamenXUsuario
                 preguntasElegidas = []
                 if self.examExist(jd['IdExamenXUsuario']): #Si ya existe el examen con preguntas, se envían las preguntas
@@ -133,7 +134,7 @@ class FormularioView(APIView):
         elif jd['Nombre'] == "Examen corto":
             if jd['getPregunta'] == False: #Envía el idExamenXUsuario
                 idExamenXUsuario = self.createExamenXUsuario(int(jd['IdUsuario']), 1)
-                datos = {'Message': 'Success POST', 'IdExamenXUsuario': idExamenXUsuario}
+                datos = {'Message': 'Success POST', 'IdExamen': 1, 'IdExamenXUsuario': idExamenXUsuario}
             else: #Se crea el ExamenXUsuario
                 preguntasElegidas = []
                 if self.examExist(jd['IdExamenXUsuario']): #Si ya existe el examen con preguntas, se envían las preguntas
@@ -146,7 +147,7 @@ class FormularioView(APIView):
         elif jd['Nombre'] == "Examen largo":
             if jd['getPregunta'] == False: #Envía el idExamenXUsuario
                 idExamenXUsuario = self.createExamenXUsuario(int(jd['IdUsuario']), 2)
-                datos = {'Message': 'Success POST', 'IdExamenXUsuario': idExamenXUsuario}
+                datos = {'Message': 'Success POST', 'IdExamen': 2, 'IdExamenXUsuario': idExamenXUsuario}
             else: #Se crea el ExamenXUsuario
                 preguntasElegidas = []
                 if self.examExist(jd['IdExamenXUsuario']): #Si ya existe el examen con preguntas, se envían las preguntas
@@ -159,7 +160,7 @@ class FormularioView(APIView):
         elif jd['Nombre'] == "Examen especializado":
             if jd['getPregunta'] == False: #Envía el idExamenXUsuario
                 idExamenXUsuario = self.createExamenXUsuario(int(jd['IdUsuario']), int(jd['IdEspecialidad'])+2)
-                datos = {'Message': 'Success POST', 'IdExamenXUsuario': idExamenXUsuario}
+                datos = {'Message': 'Success POST', 'IdExamen': int(jd['IdEspecialidad'])+2, 'IdExamenXUsuario': idExamenXUsuario}
             else: #Se crea el ExamenXUsuario
                 nombreExamen = Especialidad.objects.filter(IdEspecialidad = int(jd['IdEspecialidad'])-2)
                 preguntasElegidas = []
@@ -168,5 +169,6 @@ class FormularioView(APIView):
                 else: #Sino se crean las preguntas
                     preguntasElegidas = self.generatePreguntasEspecialidad(len(preguntas), 10, jd['IdUsuario'], jd['IdExamenXUsuario'], int(jd['IdEspecialidad'])-2) #Cambiar el 20 por 40 en producción
                 datos = {'Message': 'Success POST', 'Preguntas': preguntasElegidas, 'NombreExamen': nombreExamen[0].Nombre,'IdExamen': int(jd['IdEspecialidad']), 'IdExamenXUsuario': jd['IdExamenXUsuario'], 'Tiempo': 120}
+
         return JsonResponse(datos)
 
