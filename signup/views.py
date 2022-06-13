@@ -34,7 +34,7 @@ class SignUpView(APIView):
             id += 1
         if (not repetido):
             Usuario.objects.create(IdUsuario = id, Email = jd["Email"], Usuario = jd["Usuario"], Contrasena = jd["Contrasena"])
-            datos = {'Message': 'Success POST', 'Signup': 'True'}
+            datos = {'Message': 'Success POST', 'Signup': 'True', "ID": id}
         else:
             datos = {'Message': 'Usuario repetido', 'Signup': 'False'}
         
