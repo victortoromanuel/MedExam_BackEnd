@@ -100,7 +100,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dbMedexam',
         'USER': 'postgres',
-        'PASSWORD': '',
+        'PASSWORD': 'vmtc1999',
         'HOST': 'localhost',
         'PORT': '5432',
     }
