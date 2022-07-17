@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-&(5jymhwtpr&n*g@8v8nf*#$vd_9uyi+o@_%z=bf^*)5c&g(9#
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = False #Probando payulatam
-DEBUG = False
+DEBUG = True
 
 if not DEBUG:
     SECURE_SSL_REDIRECT=True
