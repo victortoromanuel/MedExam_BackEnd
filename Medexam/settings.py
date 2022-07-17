@@ -98,7 +98,7 @@ WSGI_APPLICATION = 'Medexam.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbMedexam',
+        'NAME': 'dbmedexam',
         'USER': 'postgres',
         'PASSWORD': 'vmtc1999',
         'HOST': 'localhost',
