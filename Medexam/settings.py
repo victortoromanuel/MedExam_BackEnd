@@ -24,11 +24,16 @@ SECRET_KEY = 'django-insecure-&(5jymhwtpr&n*g@8v8nf*#$vd_9uyi+o@_%z=bf^*)5c&g(9#
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = False #Probando payulatam
-DEBUG = True
+DEBUG = False
 
-SECURE_SSL_REDIRECT=False
-SESSION_COOKIE_SECURE=False
-CSRF_COOKIE_SECURE=False
+if not DEBUG:
+    SECURE_SSL_REDIRECT=True
+    SESSION_COOKIE_SECURE=True
+    CSRF_COOKIE_SECURE=True
+else:
+    SECURE_SSL_REDIRECT=False
+    SESSION_COOKIE_SECURE=False
+    CSRF_COOKIE_SECURE=False
 
 CSRF_TRUSTED_ORIGINS = ['134.122.125.243']
 
