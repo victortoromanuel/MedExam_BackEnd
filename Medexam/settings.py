@@ -41,7 +41,7 @@ SECURE_SSL_REDIRECT=False
 SESSION_COOKIE_SECURE=False
 CSRF_COOKIE_SECURE=False
 #ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['134.122.125.243', 'www.medexambackend.tk/', 'medexambackend.tk']
+ALLOWED_HOSTS = ['134.122.125.243', 'www.medexambackend.tk', 'medexambackend.tk']
 
 # Application definition
 
